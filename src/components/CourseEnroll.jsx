@@ -8,7 +8,6 @@ import useGetStudents from "../hooks/useGetStudents";
 const CourseEnroll = ({ courseid }) => {
   const [processing, setProcessing] = useState(false);
   const [enrolled, setEnrolled] = useState(false);
-
   const user = useSelector((store) => store.userState.user);
   const enrolledStudents = useGetStudents(courseid);
 
@@ -21,11 +20,13 @@ const CourseEnroll = ({ courseid }) => {
   };
 
   useEffect(() => {
+
     if (user?.uid && enrolledStudents) {
       let res = hasUserid(enrolledStudents, user.uid);
+      console.log("enrolled=>",res)
       setEnrolled(res);
     }
-  }, []);
+  }, [user,enrolledStudents]);
 
   const enroll = async () => {
     console.log("enroll called");
