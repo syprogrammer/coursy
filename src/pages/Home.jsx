@@ -3,13 +3,16 @@ import CourseCard from "../components/CourseCard";
 import { Link } from "react-router-dom";
 import { collection, doc, setDoc } from "firebase/firestore"; 
 import useGetCourseList from "../hooks/useGetCourseList";
+import CardsShimmer from "../components/CardsShimmer";
 
 const Home = () => {
 
   const courses = useGetCourseList();
   console.log("Home page ",courses)
 
-
+  if(!courses){
+    return <CardsShimmer/>
+  }
 
   return (
     <div className="p-4">

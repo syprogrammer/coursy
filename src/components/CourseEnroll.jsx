@@ -48,7 +48,7 @@ const CourseEnroll = ({ courseid }) => {
   };
   if (enrolled) {
     return (
-      <Link>
+      <Link to="/dashboard">
         <button className="cursor-pointer  bg-cyan-700  text-white w-full py-2 my-1 ">
           Go to Course
         </button>

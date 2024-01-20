@@ -7,6 +7,7 @@ import signOutUser from "../utils/logout";
 import toast, { Toaster } from "react-hot-toast";
 import useGetEnrolledCourses from "../hooks/useGetEnrolledCourses";
 import markCourseComplete from "../utils/courseComplete";
+import CardsShimmer from "../components/CardsShimmer";
 
 const notify = () => toast("✔️ signed Out  successfully");
 
@@ -34,7 +35,7 @@ const Dashboard = () => {
   };
 
   if (!enrolledCourses) {
-    return <p>Loading...</p>;
+    return <CardsShimmer/>
   }
 
   console.log("from dashboard", enrolledCourses);
