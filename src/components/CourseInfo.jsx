@@ -53,7 +53,7 @@ const CourseInfo = ({ data }) => {
           <div className="bg-white text-black w-fit px-5 py-2 rounded-md">
             👍 Likes :{likes.length}
           </div>
-          {user?.uid && likes.includes(user.uid) &&(
+          {user?.uid && !likes.includes(user.uid) &&(
             <button
               onClick={() => like(data?.id)}
               className="bg-green-500 w-fit px-5 py-2 rounded-md"
