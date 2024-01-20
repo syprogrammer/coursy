@@ -23,7 +23,7 @@ const CourseInfo = ({ data }) => {
     }
   };
 
-  let isLiked = likes.includes(user.uid);
+  
   
   return (
     <div className="bg-black text-white p-5 flex flex-row-reverse flex-wrap justify-center gap-5">
@@ -53,7 +53,7 @@ const CourseInfo = ({ data }) => {
           <div className="bg-white text-black w-fit px-5 py-2 rounded-md">
             👍 Likes :{likes.length}
           </div>
-          {user?.uid && !isLiked &&(
+          {user?.uid && likes.includes(user.uid) &&(
             <button
               onClick={() => like(data?.id)}
               className="bg-green-500 w-fit px-5 py-2 rounded-md"
