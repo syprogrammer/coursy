@@ -7,7 +7,7 @@ export default function CardsShimmer() {
           <div
             key={card}
             role="status"
-            className="w-[170px] md:w-[300px] p-4  rounded  animate-pulse md:p-6 dark:border-gray-700"
+            className="w-[95%] md:w-[300px] p-4  rounded  animate-pulse md:p-6 dark:border-gray-700"
           >
             <div className="flex items-center justify-center h-48 mb-4 bg-gray-300 rounded dark:bg-gray-700">
               <svg
