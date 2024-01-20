@@ -21,7 +21,7 @@ const CourseEnroll = ({ courseid }) => {
   };
 
   useEffect(() => {
-    if (user && enrolledStudents) {
+    if (user?.uid && enrolledStudents) {
       let res = hasUserid(enrolledStudents, user.uid);
       setEnrolled(res);
     }
