@@ -1,27 +1,32 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import createNewUser from "../utils/signup";
-import SigninUser from "../utils/singin";
+import SigninUser from "../utils/signin";
+import { useDispatch } from "react-redux";
+import { closeLoginPopup } from "../redux/slices/setting";
 
-const Auth = ({ page }) => {
+const Auth = () => {
+  const [isSignin, SetIsSignin] = useState(true);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      if (page == "signup") {
+      if (!isSignin) {
         const user = await createNewUser(email, password);
-        console.log(user);
+        // console.log(user);
         if (user.uid) {
-          navigate("/");
+          dispatch(closeLoginPopup());
         }
       } else {
         const user = await SigninUser(email, password);
-        console.log(user);
+        // console.log(user);
         if (user.uid) {
-          navigate("/dashboard");
+          dispatch(closeLoginPopup());
         }
       }
     } catch (error) {
@@ -31,23 +36,26 @@ const Auth = ({ page }) => {
   };
 
   return (
-    <section className="bg-gray-50 dark:bg-gray-900">
+    <section className="bg-gray-50 lg:w-1/2 mx-auto rounded-md  lg:py-0">
+      <button
+        onClick={() => dispatch(closeLoginPopup())}
+        className="bg-orange-500  text-white px-2 py-1 rounded-sm text-sm"
+      >
+        Go to Home
+      </button>
       <div className=" flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
         {/* -------logo---------- */}
         <div className="logo my-5">
           <Link to="/">
-            <img
-              src="/logo-udemy.svg"
-              alt="Udemy"
-              loading="lazy"
-              className="w-20"
-            />
+            <div className="text-xl font-bold">
+              Cou<span className="text-orange-500">rsy</span>
+            </div>
           </Link>
         </div>
         <div className="w-full  bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
           <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
             <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
-              {page == "signup" ? "Sign up" : "Sign in to"} your account
+              {!isSignin ? "Sign up" : "Sign in to"} your account
             </h1>
             <form className="space-y-4 md:space-y-6" onSubmit={handleSubmit}>
               <div>
@@ -88,7 +96,7 @@ const Auth = ({ page }) => {
                   value={password}
                 />
               </div>
-              {page == "signin" && (
+              {isSignin && (
                 <div className="flex items-center justify-between">
                   <div className="flex items-start">
                     <div className="flex items-center h-5">
@@ -109,31 +117,26 @@ const Auth = ({ page }) => {
                       </label>
                     </div>
                   </div>
-                  <a
-                    href="#"
-                    className="text-sm font-medium text-primary-600 hover:underline dark:text-primary-500"
-                  >
+                  <div className="text-sm font-medium text-primary-600 hover:underline dark:text-primary-500">
                     Forgot password?
-                  </a>
+                  </div>
                 </div>
               )}
               <p className="text-rose-500">{error}</p>
               <button
                 type="submit"
-                className="w-full text-white bg-black hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                className="w-full text-white bg-orange-700 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
               >
-                {page == "signup" ? "Sign Up" : "Sign In"}
+                {!isSignin ? "Sign Up" : "Sign In"}
               </button>
-              <p className="text-sm font-light text-gray-500 dark:text-gray-400">
-                {page == "signup"
-                  ? "Have an account yet?"
-                  : "Don't have an account yet?"}
-                <Link
-                  to={page == "signup" ? "/signin" : "/signup"}
-                  className="px-2 font-medium text-primary-600 hover:underline dark:text-primary-500"
+              <p className="text-sm  text-gray-700 ">
+                {!isSignin ? "Have an account yet?" : "Don't have an account?"}
+                <span
+                  onClick={() => SetIsSignin(!isSignin)}
+                  className="px-2 font-bold text-orange-700 hover:underline "
                 >
-                  {page == "signup" ? "Sign In" : "Sign Up"}
-                </Link>
+                  {!isSignin ? "Sign In" : "Sign Up"}
+                </span>
               </p>
             </form>
           </div>

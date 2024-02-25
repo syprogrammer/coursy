@@ -1,9 +1,8 @@
 import { onAuthStateChanged } from 'firebase/auth';
-import { useEffect, useState } from 'react'
+import { useEffect} from 'react'
 import { useDispatch } from 'react-redux';
 import { auth } from '../firebase';
 import {addUser} from '../redux/slices/user';
-
 
 const useAuth = () => {
    
@@ -12,7 +11,7 @@ const useAuth = () => {
      useEffect(() => {
        onAuthStateChanged(auth, (user) => {
          if (user) {
-           console.log("user",user);
+          //  console.log("user",user);
           
            dispatch(
             addUser({
@@ -24,8 +23,6 @@ const useAuth = () => {
          }
        });
      }, [auth, dispatch]);
-
- 
 }
 
 export default useAuth

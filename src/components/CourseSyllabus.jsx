@@ -4,7 +4,7 @@ import DropDown from "./DropDown";
 const CourseSyllabus = ({syllabus}) => {
  
   return (
-    <div className="m-4">
+    <div className="my-4">
       <h2 className="py-4 text-xl font-bold">Course Content</h2>
       <div className="">
         {syllabus?.map((data) => {

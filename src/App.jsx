@@ -1,10 +1,4 @@
-import {
-  createBrowserRouter,
-  Navigate,
-  Outlet,
-  RouterProvider,
-  useNavigate,
-} from "react-router-dom";
+import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 
 import Home from "./pages/Home";
 import Navbar from "./components/Navbar";
@@ -14,41 +8,42 @@ import Dashboard from "./pages/Dashboard";
 import Error from "./components/Error";
 import Offline from "./components/Offline";
 import useOnlineStatus from "./hooks/useOnlineStatus";
-import Login from "./pages/Login";
-import Signup from "./pages/Signup";
 import { useSelector } from "react-redux";
 import useAuth from "./hooks/useAuth";
-// exporting router
+import Auth from "./components/Auth";
+
 const App = () => {
   const auth = useAuth();
   const isOnline = useOnlineStatus();
-  const user= useSelector((store) => store.userState.user);
-  console.log("authenticated", user);
+  const user = useSelector((store) => store.userState.user);
+  const loginPopup = useSelector((store) => store.settings.loginPopup);
 
-  if (!isOnline) {
-    return <Offline />;
-  }
-  
   const ProtectedRoute = ({ children }) => {
     if (!user) {
-      console.log("not authenticated");
-      return <Navigate to="/signin" />;
+      return (
+        <div>
+          <Auth />
+        </div>
+      );
     }
-    
+
     return children;
   };
+
   //app struct
   const AppLayout = () => {
-
-    return (
-      <div className="">       
-        <Navbar />
- 
-        <div className="min-h-screen">
-          <Outlet />
+    return isOnline ? (
+      <div className="">
+        <div className="h-[10vh]">
+          <Navbar />
+        </div>
+        <div className="min-h-screen px-5 md:px-10 py-5">
+          {loginPopup ? <Auth /> : <Outlet />}
         </div>
         <Footer />
       </div>
+    ) : (
+      <Offline />
     );
   };
 
@@ -62,14 +57,6 @@ const App = () => {
         {
           path: "/",
           element: <Home />,
-        },
-        {
-          path: "/signup",
-          element: <Signup />,
-        },
-        {
-          path: "/signin",
-          element: <Login />,
         },
         {
           path: "/description/:id",

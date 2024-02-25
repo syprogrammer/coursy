@@ -1,12 +1,11 @@
 import { useEffect, useState } from "react"
 
-
 const useOnlineStatus = ()=>{
   
     const [isOnline,setIsOnline] = useState(true)
 
     useEffect(()=>{
-        console.log("useonline hook called")
+        // console.log("useonline hook called")
         const handleOnline = ()=>{
             setIsOnline(true)
         }

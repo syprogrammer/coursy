@@ -23,13 +23,13 @@ const CourseEnroll = ({ courseid }) => {
 
     if (user?.uid && enrolledStudents) {
       let res = hasUserid(enrolledStudents, user.uid);
-      console.log("enrolled=>",res)
+      // console.log("enrolled=>",res)
       setEnrolled(res);
     }
   }, [user,enrolledStudents]);
 
   const enroll = async () => {
-    console.log("enroll called");
+    // console.log("enroll called");
     setProcessing(true);
     try {
       const courseRef = doc(collection(db, "Enrollment"));
@@ -49,7 +49,7 @@ const CourseEnroll = ({ courseid }) => {
   if (enrolled) {
     return (
       <Link to="/dashboard">
-        <button className="cursor-pointer  bg-cyan-700  text-white w-full py-2 my-1 ">
+        <button className="cursor-pointer  bg-orange-700 rounded-md  text-white w-full py-2 my-1 ">
           Go to Course
         </button>
       </Link>
@@ -60,13 +60,13 @@ const CourseEnroll = ({ courseid }) => {
       {user ? (
         <button
           onClick={enroll}
-          className="cursor-pointer  bg-green-700 hover:bg-green-400 text-white w-full py-2 my-1 "
+          className="cursor-pointer rounded-md bg-orange-500 hover:bg-orange-400 text-white w-full py-2 my-1 "
         >
           {processing ? "Processing ..." : " Enroll in Course"}
         </button>
       ) : (
         <Link to="/signin">
-          <button className="bg-cyan-700 text-white w-full py-2 my-1 ">
+          <button className="bg-orange-500 rounded-md text-white w-full py-2 my-1 ">
             Sign in to Enroll in Course
           </button>
         </Link>

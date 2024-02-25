@@ -4,9 +4,9 @@ const DropDown = ({ data }) => {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <>
-      <div className="w-full border cursor-pointer">
+      <div className="w-full border  cursor-pointer">
         <h3
-          className="flex bg-gray-200 p-4  items-center gap-2 font-semibold"
+          className="flex bg-orange-100 p-4  items-center gap-2 font-semibold"
           onClick={() => setIsOpen(!isOpen)}
         >
           <img
@@ -15,7 +15,7 @@ const DropDown = ({ data }) => {
           />
           Week {data.week}-{data.topic}
         </h3>
-        {isOpen && <p className="bg-white p-4  border">{data.content}</p>}
+        {isOpen && <p className="bg-gray-50 leading-5 tracking-wide text-black p-4  border">{data.content}</p>}
       </div>
     </>
   );

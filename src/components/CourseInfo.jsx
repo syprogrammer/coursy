@@ -12,7 +12,7 @@ const CourseInfo = ({ data }) => {
     try {
       setProcessing(true);
       const res = await LikeCourse(id, [...likes, user.uid]);
-      console.log("res is =>", res, [...likes, user.uid]);
+      // console.log("res is =>", res, [...likes, user.uid]);
       if (res) {
         setLikes([...likes, user.uid]);
       }
@@ -26,7 +26,7 @@ const CourseInfo = ({ data }) => {
   
   
   return (
-    <div className="bg-black text-white p-5 flex flex-row-reverse flex-wrap justify-center gap-5">
+    <div className="bg-black rounded-md shadow-md text-white p-5 flex flex-row-reverse flex-wrap justify-center gap-5">
       <div className="w-full md:w-1/3">
         <img src={data?.thumbnail} alt="" loading="lazy" className="w-full" />
       </div>

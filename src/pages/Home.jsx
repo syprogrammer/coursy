@@ -8,18 +8,18 @@ import CardsShimmer from "../components/CardsShimmer";
 const Home = () => {
 
   const courses = useGetCourseList();
-  console.log("Home page ",courses)
+  // console.log("Home page ",courses)
 
   if(!courses){
     return <CardsShimmer/>
   }
 
   return (
-    <div className="p-4">
-      <h1 className="py-6 text-2xl font-bold">
-        Expand your career opportunities with Skills
+    <div className="">
+      <h1 className="px-10 py-10 text-xl font-semibold">
+        Expand your <span className="text-orange-500 font-bold">Career</span> opportunities with <span className="text-orange-500 font-bold">Skills</span> 🚀
       </h1>
-      <div className="flex flex-wrap  gap-4 justify-evenly">
+      <div className="flex flex-wrap  gap-5 justify-evenly items-center px-5 lg:px-0 ">
         {courses?.map((item) => (
           <Link
             key={item.id}
