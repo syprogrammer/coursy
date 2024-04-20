@@ -20,13 +20,13 @@ const Auth = () => {
         const user = await createNewUser(email, password);
         // console.log(user);
         if (user.uid) {
-          dispatch(closeLoginPopup());
+          navigate(-1)
         }
       } else {
         const user = await SigninUser(email, password);
         // console.log(user);
         if (user.uid) {
-          dispatch(closeLoginPopup());
+            navigate(-1)
         }
       }
     } catch (error) {

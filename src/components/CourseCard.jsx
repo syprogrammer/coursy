@@ -7,6 +7,7 @@ const CourseCard = ({ data }) => {
       <div>
         <img src={data?.thumbnail} alt="" loading="lazy" className="w-full rounded-t-md" />
       </div>
+      
       <div className="course-info p-2 py-4">
         <h3 className="font-semibold break-words">
           {data?.name?.slice(0, 40)}

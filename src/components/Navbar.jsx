@@ -1,11 +1,11 @@
-import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { openLoginPopup } from "../redux/slices/setting";
+
 
 const Navbar = () => {
-  const [search, setSearch] = useState("");
-  const dispatch = useDispatch();
+
+ 
   const user = useSelector((store) => store.userState.user);
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -13,7 +13,7 @@ const Navbar = () => {
   return (
     <nav className="fixed z-50 w-full bg-white flex justify-between p-4 items-center shadow-xl">
       {/* -------logo---------- */}
-      
+
       <div className="logo">
         <Link to="/">
           <div className="text-xl font-bold">
@@ -44,27 +44,39 @@ const Navbar = () => {
 
       {/* ----------menu------  */}
       <div className="flex justify-end items-center gap-5">
-        <Link
-          to="/dashboard"
-          className="bg-orange-700 text-white py-2 px-2 rounded-md"
-        >
-          Dashboard
-        </Link>
+        {user?.email != "test55@gmail.com" && (
+          <Link
+            to="/dashboard"
+            className="bg-orange-700 text-white py-2 px-2 rounded-md"
+          >
+            Dashboard
+          </Link>
+        )}
+
         {user?.email ? (
-          <img
-            src="/useravatar.png"
-            alt="logo"
-            loading="lazy"
-            className="w-10"
-          />
+          user.email == "test55@gmail.com" ? (
+            <Link
+              to="/admin"
+              className="bg-orange-700 text-white py-2 px-2 rounded-md"
+            >
+              Admin
+            </Link>
+          ) : (
+            <img
+              src="/useravatar.png"
+              alt="logo"
+              loading="lazy"
+              className="w-10"
+            />
+          )
         ) : (
-          <button
-            onClick={() => dispatch(openLoginPopup())}
-            to="/signin"
+          <Link
+            to="/auth"
+            // onClick={() => dispatch(openLoginPopup())}
             className="bg-orange-700  text-white py-2 px-4 rounded-md"
           >
             Signin
-          </button>
+          </Link>
         )}
       </div>
     </nav>

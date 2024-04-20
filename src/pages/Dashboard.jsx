@@ -30,7 +30,7 @@ const Dashboard = () => {
     signOutUser();
     notify();
   };
-
+  console.log(enrolledCourses)
   if (!enrolledCourses) {
     return <CardsShimmer />;
   }
@@ -47,32 +47,45 @@ const Dashboard = () => {
       </button>
 
       <h2 className="text-xl font-bold my-6">
-        Courses you have <span className="text-orange-500">Enrolled</span>{" "}
+        {enrolledCourses?.length>0 ? (
+          <span>
+            Courses you have <span className="text-orange-500">Enrolled</span>
+          </span>
+        ) : (
+          <span>
+            {" "}
+            You have't enrolled in a <span className="text-orange-500">Course yest</span>
+          </span>
+        )}
       </h2>
       <div className="flex flex-wrap  gap-4 justify-evenly items-center">
-        {enrolledCourses?.map((item) => (
-          <div key={item?.value?.id} className="w-full  md:w-64">
-            <Link to={`/description/${item?.value?.id}`}>
-              <CourseCard data={item.value} />
-            </Link>
-            {enrollDetails.map(
-              (enroll) =>
-                enroll.courseid == item.value.id &&
-                (enroll.progress == "ongoing" ? (
-                  <button
-                    onClick={() => markCourseComplete(enroll.enrollid)}
-                    className="w-full bg-green-500 px-2 py-1 text-white rounded-b-md"
-                  >
-                    Mark as Complete
-                  </button>
-                ) : (
-                  <button className="w-full bg-orange-500 px-2 py-1 text-white rounded-b-md">
-                    Course Completed
-                  </button>
-                ))
-            )}
-          </div>
-        ))}
+        {enrolledCourses ? (
+          enrolledCourses?.map((item) => (
+            <div key={item?.value?.id} className="w-full  md:w-64">
+              <Link to={`/description/${item?.value?.id}`}>
+                <CourseCard data={item.value} />
+              </Link>
+              {enrollDetails.map(
+                (enroll) =>
+                  enroll.courseid == item.value.id &&
+                  (enroll.progress == "ongoing" ? (
+                    <button
+                      onClick={() => markCourseComplete(enroll.enrollid)}
+                      className="w-full bg-green-500 px-2 py-1 text-white rounded-b-md"
+                    >
+                      Mark as Complete
+                    </button>
+                  ) : (
+                    <button className="w-full bg-orange-500 px-2 py-1 text-white rounded-b-md">
+                      Course Completed
+                    </button>
+                  ))
+              )}
+            </div>
+          ))
+        ) : (
+          <Link to="/">Go to Home</Link>
+        )}
       </div>
     </div>
   );

@@ -10,7 +10,9 @@ import Offline from "./components/Offline";
 import useOnlineStatus from "./hooks/useOnlineStatus";
 import { useSelector } from "react-redux";
 import useAuth from "./hooks/useAuth";
-import Auth from "./components/Auth";
+import Auth from "./pages/Auth";
+import AdminHome from "./pages/admin/AdminHome";
+import NewCourse from "./pages/admin/NewCourse";
 
 const App = () => {
   const auth = useAuth();
@@ -32,18 +34,16 @@ const App = () => {
 
   //app struct
   const AppLayout = () => {
-    return isOnline ? (
+    return (
       <div className="">
         <div className="h-[10vh]">
           <Navbar />
         </div>
         <div className="min-h-screen px-5 md:px-10 py-5">
-          {loginPopup ? <Auth /> : <Outlet />}
+          <Outlet />
         </div>
         <Footer />
       </div>
-    ) : (
-      <Offline />
     );
   };
 
@@ -57,6 +57,18 @@ const App = () => {
         {
           path: "/",
           element: <Home />,
+        },
+        {
+          path: "/auth",
+          element: <Auth />,
+        },
+        {
+          path: "/admin",
+          element: <AdminHome/>,
+        },
+        {
+          path: "/admin/newcourse",
+          element: <NewCourse/>,
         },
         {
           path: "/description/:id",
